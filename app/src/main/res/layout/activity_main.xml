@@ -86,24 +86,40 @@
             android:layout_weight="1">
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btnLimpiar"
                 style="@style/Boton.Accion"
                 android:contentDescription="@string/desc_limpiar"
                 android:text="@string/limpiar" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btnBorrar"
                 style="@style/Boton.Accion"
                 android:contentDescription="@string/desc_borrar"
                 android:text="@string/borrar" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btnSigno"
                 style="@style/Boton.Accion"
                 android:contentDescription="@string/desc_signo"
                 android:text="@string/signo" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btnDividir"
                 style="@style/Boton.Operador"
                 android:contentDescription="@string/desc_dividir"
@@ -116,21 +132,37 @@
             android:layout_weight="1">
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btn7"
                 style="@style/Boton.Numero"
                 android:text="@string/n7" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btn8"
                 style="@style/Boton.Numero"
                 android:text="@string/n8" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btn9"
                 style="@style/Boton.Numero"
                 android:text="@string/n9" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btnMultiplicar"
                 style="@style/Boton.Operador"
                 android:contentDescription="@string/desc_multiplicar"
@@ -143,21 +175,37 @@
             android:layout_weight="1">
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btn4"
                 style="@style/Boton.Numero"
                 android:text="@string/n4" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btn5"
                 style="@style/Boton.Numero"
                 android:text="@string/n5" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btn6"
                 style="@style/Boton.Numero"
                 android:text="@string/n6" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btnRestar"
                 style="@style/Boton.Operador"
                 android:contentDescription="@string/desc_restar"
@@ -170,21 +218,37 @@
             android:layout_weight="1">
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btn1"
                 style="@style/Boton.Numero"
                 android:text="@string/n1" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btn2"
                 style="@style/Boton.Numero"
                 android:text="@string/n2" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btn3"
                 style="@style/Boton.Numero"
                 android:text="@string/n3" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btnSumar"
                 style="@style/Boton.Operador"
                 android:contentDescription="@string/desc_sumar"
@@ -198,18 +262,29 @@
             android:layout_weight="1">
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="2"
                 android:id="@+id/btn0"
                 style="@style/Boton.Numero"
                 android:layout_span="2"
-                android:layout_weight="2"
                 android:text="@string/n0" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btnPunto"
                 style="@style/Boton.Numero"
                 android:text="@string/punto" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
                 android:id="@+id/btnIgual"
                 style="@style/Boton.Igual"
                 android:contentDescription="@string/desc_igual"
