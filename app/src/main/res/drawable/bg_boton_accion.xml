@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Forma redondeada para los botones (sin imágenes) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/accion_fondo" />
+    <corners android:radius="16dp" />
+</shape>

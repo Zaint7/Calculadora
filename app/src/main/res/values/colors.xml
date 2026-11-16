@@ -2,4 +2,27 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Fondo y textos de la pantalla -->
+    <color name="fondo">#FFF5F5F5</color>
+    <color name="texto_principal">#FF212121</color>
+    <color name="texto_secundario">#FF757575</color>
+
+    <!-- Botones numéricos: gris claro con texto oscuro -->
+    <color name="numero_fondo">#FFE0E0E0</color>
+    <color name="numero_texto">#FF212121</color>
+
+    <!-- Operadores: naranja (y un naranja más oscuro para el operador activo) -->
+    <color name="operador_fondo">#FFFF9800</color>
+    <color name="operador_activo">#FFE65100</color>
+
+    <!-- Botón igual: verde -->
+    <color name="igual_fondo">#FF43A047</color>
+
+    <!-- Botones de acción (C, borrar, signo) -->
+    <color name="accion_fondo">#FFE57373</color>
+    <color name="accion_gris_fondo">#FF616161</color>
+
+    <!-- Color del resultado tras presionar = -->
+    <color name="resultado">#FF2E7D32</color>
 </resources>
