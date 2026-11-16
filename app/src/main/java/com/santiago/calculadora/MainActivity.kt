@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -84,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnSumar).setOnClickListener { presionarOperador("+") }
         findViewById<Button>(R.id.btnRestar).setOnClickListener { presionarOperador("-") }
         findViewById<Button>(R.id.btnMultiplicar).setOnClickListener { presionarOperador("*") }
+        findViewById<Button>(R.id.btnDividir).setOnClickListener { presionarOperador("/") }
         findViewById<Button>(R.id.btnIgual).setOnClickListener { presionarIgual() }
     }
 
@@ -218,20 +220,28 @@ class MainActivity : AppCompatActivity() {
      * Devuelve null si no se pudo calcular.
      */
     private fun calcular(a: Double, b: Double): Double? {
-        return when (operadorActual) {
-            "+" -> sumar(a, b)
-            "-" -> restar(a, b)
-            "*" -> multiplicar(a, b)
-            else -> null
+        try {
+            return when (operadorActual) {
+                "+" -> sumar(a, b)
+                "-" -> restar(a, b)
+                "*" -> multiplicar(a, b)
+                "/" -> dividir(a, b)
+                else -> null
+            }
+        } catch (e: ArithmeticException) {
+            // División entre cero: avisamos con un Toast y dejamos todo limpio
+            Toast.makeText(this, R.string.error_division_cero, Toast.LENGTH_SHORT).show()
+            limpiarTodo()
+            return null
         }
     }
 
     /** Convierte el operador interno ("*", "/", "-") al símbolo que se muestra al usuario. */
     private fun simbolo(operador: String): String {
         return when (operador) {
-            "*" -> "×"
-            "/" -> "÷"
-            "-" -> "−"
+                "*" -> "×"
+                "/" -> "÷"
+                "-" -> "−"
             else -> operador
         }
     }
@@ -253,6 +263,17 @@ class MainActivity : AppCompatActivity() {
     /** Multiplicación: devuelve a × b. */
     private fun multiplicar(a: Double, b: Double): Double {
         return a * b
+    }
+
+    /**
+     * División: devuelve a ÷ b.
+     * Si b es 0 lanza una ArithmeticException, que calcular() captura para avisar al usuario.
+     */
+    private fun dividir(a: Double, b: Double): Double {
+        if (b == 0.0) {
+            throw ArithmeticException("División entre cero")
+        }
+        return a / b
     }
 
     // =====================================================================
