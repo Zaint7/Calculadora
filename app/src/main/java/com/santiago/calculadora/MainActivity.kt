@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnBorrar).setOnClickListener { borrarUltimo() }
         findViewById<Button>(R.id.btnSigno).setOnClickListener { cambiarSigno() }
         findViewById<Button>(R.id.btnSumar).setOnClickListener { presionarOperador("+") }
+        findViewById<Button>(R.id.btnRestar).setOnClickListener { presionarOperador("-") }
         findViewById<Button>(R.id.btnIgual).setOnClickListener { presionarIgual() }
     }
 
@@ -218,6 +219,7 @@ class MainActivity : AppCompatActivity() {
     private fun calcular(a: Double, b: Double): Double? {
         return when (operadorActual) {
             "+" -> sumar(a, b)
+            "-" -> restar(a, b)
             else -> null
         }
     }
@@ -239,6 +241,11 @@ class MainActivity : AppCompatActivity() {
     /** Suma: devuelve a + b. */
     private fun sumar(a: Double, b: Double): Double {
         return a + b
+    }
+
+    /** Resta: devuelve a - b. */
+    private fun restar(a: Double, b: Double): Double {
+        return a - b
     }
 
     // =====================================================================
