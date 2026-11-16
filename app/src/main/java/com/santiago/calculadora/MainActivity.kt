@@ -81,6 +81,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnLimpiar).setOnClickListener { limpiarTodo() }
         findViewById<Button>(R.id.btnBorrar).setOnClickListener { borrarUltimo() }
         findViewById<Button>(R.id.btnSigno).setOnClickListener { cambiarSigno() }
+        findViewById<Button>(R.id.btnSumar).setOnClickListener { presionarOperador("+") }
+        findViewById<Button>(R.id.btnIgual).setOnClickListener { presionarIgual() }
     }
 
     // =====================================================================
@@ -155,6 +157,88 @@ class MainActivity : AppCompatActivity() {
         } else {
             etPantalla.setText("-$actual")
         }
+    }
+
+    // =====================================================================
+    //  OPERADORES Y RESULTADO
+    // =====================================================================
+
+    /**
+     * Se llama al presionar un botón de operador (+, -, *, /).
+     *  - Si ya había una operación pendiente y el usuario escribió el segundo número,
+     *    primero calcula lo anterior (así se pueden encadenar: 12 + 5 + 3).
+     *  - Si el usuario cambia de operador sin escribir el segundo número,
+     *    solo reemplaza el operador.
+     */
+    private fun presionarOperador(operador: String) {
+        val numeroEnPantalla = leerPantalla() ?: return
+        val anterior = primerOperando
+
+        if (anterior != null && operadorActual != null) {
+            if (!escribiendoNuevoNumero) {
+                // Había "12 +" y se escribió "5": calculamos 12 + 5 y seguimos con el resultado
+                val resultado = calcular(anterior, numeroEnPantalla) ?: return
+                primerOperando = resultado
+                etPantalla.setText(formatear(resultado))
+            }
+            // Si escribiendoNuevoNumero es true, solo cambia el operador (se hace abajo)
+        } else {
+            primerOperando = numeroEnPantalla
+        }
+
+        operadorActual = operador
+        escribiendoNuevoNumero = true
+        tvExpresion.text = "${formatear(primerOperando!!)} ${simbolo(operador)}"
+    }
+
+    /**
+     * Botón =: ejecuta la operación pendiente y muestra el resultado.
+     * No hace nada si falta el operador o el segundo número.
+     */
+    private fun presionarIgual() {
+        val a = primerOperando ?: return
+        val operador = operadorActual ?: return
+        if (escribiendoNuevoNumero) return // todavía no se escribió el segundo número
+        val b = leerPantalla() ?: return
+
+        val resultado = calcular(a, b) ?: return
+        tvExpresion.text = "${formatear(a)} ${simbolo(operador)} ${formatear(b)} ="
+        etPantalla.setText(formatear(resultado))
+
+        // La operación terminó: el siguiente dígito empieza un número nuevo
+        primerOperando = null
+        operadorActual = null
+        escribiendoNuevoNumero = true
+    }
+
+    /**
+     * Elige qué función usar según el operador guardado.
+     * Devuelve null si no se pudo calcular.
+     */
+    private fun calcular(a: Double, b: Double): Double? {
+        return when (operadorActual) {
+            "+" -> sumar(a, b)
+            else -> null
+        }
+    }
+
+    /** Convierte el operador interno ("*", "/", "-") al símbolo que se muestra al usuario. */
+    private fun simbolo(operador: String): String {
+        return when (operador) {
+            "*" -> "×"
+            "/" -> "÷"
+            "-" -> "−"
+            else -> operador
+        }
+    }
+
+    // =====================================================================
+    //  LAS CUATRO OPERACIONES
+    // =====================================================================
+
+    /** Suma: devuelve a + b. */
+    private fun sumar(a: Double, b: Double): Double {
+        return a + b
     }
 
     // =====================================================================
