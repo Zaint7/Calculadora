@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Forma del botón de operador mientras está activo (naranja más oscuro) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/operador_activo" />
+    <corners android:radius="16dp" />
+</shape>

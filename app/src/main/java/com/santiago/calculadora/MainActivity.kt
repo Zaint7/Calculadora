@@ -1,9 +1,12 @@
 package com.santiago.calculadora
 
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etPantalla: EditText
     private lateinit var tvExpresion: TextView
     private lateinit var tvHistorial: TextView
+    private lateinit var scrollHistorial: ScrollView
 
     // ---------- Estado de la calculadora ----------
     // Primer número de la operación (null si todavía no hay ninguno)
@@ -53,9 +57,21 @@ class MainActivity : AppCompatActivity() {
         etPantalla = findViewById(R.id.etPantalla)
         tvExpresion = findViewById(R.id.tvExpresion)
         tvHistorial = findViewById(R.id.tvHistorial)
+        scrollHistorial = findViewById(R.id.scrollHistorial)
 
         // El EditText sirve como pantalla: no queremos que salga el teclado del sistema
         etPantalla.showSoftInputOnFocus = false
+
+        // OnKeyListener: la tecla Enter (teclado físico o emulador) equivale a presionar "="
+        etPantalla.setOnKeyListener { _, keyCode, evento ->
+            val esEnter = keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER
+            if (esEnter && evento.action == KeyEvent.ACTION_DOWN) {
+                presionarIgual()
+                true // true = ya manejamos la tecla, el EditText no debe procesarla
+            } else {
+                false
+            }
+        }
 
         configurarBotones()
     }
@@ -99,6 +115,7 @@ class MainActivity : AppCompatActivity() {
      * solo tiene "0", también lo reemplaza para evitar ceros a la izquierda ("007").
      */
     private fun agregarDigito(digito: String) {
+        restaurarFormatoPantalla()
         val actual = etPantalla.text.toString()
         val nuevo = when {
             escribiendoNuevoNumero -> digito
@@ -115,6 +132,7 @@ class MainActivity : AppCompatActivity() {
      * Si empezamos un número nuevo, queda "0." para que se vea bien.
      */
     private fun agregarPunto() {
+        restaurarFormatoPantalla()
         if (escribiendoNuevoNumero) {
             etPantalla.setText("0.")
             escribiendoNuevoNumero = false
@@ -130,6 +148,8 @@ class MainActivity : AppCompatActivity() {
      * Botón C: deja la calculadora como recién abierta (pantalla, expresión y estado).
      */
     private fun limpiarTodo() {
+        restaurarFormatoPantalla()
+        marcarOperadorActivo(null)
         primerOperando = null
         operadorActual = null
         escribiendoNuevoNumero = false
@@ -175,7 +195,11 @@ class MainActivity : AppCompatActivity() {
      *    solo reemplaza el operador.
      */
     private fun presionarOperador(operador: String) {
-        val numeroEnPantalla = leerPantalla() ?: return
+        val numeroEnPantalla = leerPantalla()
+        if (numeroEnPantalla == null) {
+            Toast.makeText(this, R.string.error_escribe_numero, Toast.LENGTH_SHORT).show()
+            return
+        }
         val anterior = primerOperando
 
         if (anterior != null && operadorActual != null) {
@@ -192,6 +216,7 @@ class MainActivity : AppCompatActivity() {
 
         operadorActual = operador
         escribiendoNuevoNumero = true
+        marcarOperadorActivo(operador)
         tvExpresion.text = "${formatear(primerOperando!!)} ${simbolo(operador)}"
     }
 
@@ -208,8 +233,15 @@ class MainActivity : AppCompatActivity() {
         val resultado = calcular(a, b) ?: return
         tvExpresion.text = "${formatear(a)} ${simbolo(operador)} ${formatear(b)} ="
         etPantalla.setText(formatear(resultado))
+        mostrarResultadoDestacado()
+
+        // Historial: append añade la línea al final del texto existente
+        tvHistorial.append("${formatear(a)} ${simbolo(operador)} ${formatear(b)} = ${formatear(resultado)}\n")
+        // Baja el scroll hasta el final para ver la última operación
+        scrollHistorial.post { scrollHistorial.fullScroll(View.FOCUS_DOWN) }
 
         // La operación terminó: el siguiente dígito empieza un número nuevo
+        marcarOperadorActivo(null)
         primerOperando = null
         operadorActual = null
         escribiendoNuevoNumero = true
@@ -274,6 +306,48 @@ class MainActivity : AppCompatActivity() {
             throw ArithmeticException("División entre cero")
         }
         return a / b
+    }
+
+    // =====================================================================
+    //  FORMATO Y COLORES DESDE CÓDIGO
+    // =====================================================================
+
+    /**
+     * Resalta el resultado: texto verde y un poco más grande (setTextColor y setTextSize).
+     */
+    private fun mostrarResultadoDestacado() {
+        etPantalla.setTextColor(getColor(R.color.resultado))
+        etPantalla.setTextSize(TypedValue.COMPLEX_UNIT_SP, 44f)
+    }
+
+    /**
+     * Devuelve la pantalla a su formato normal (color oscuro y 40sp).
+     * Se llama cuando el usuario empieza a escribir otro número.
+     */
+    private fun restaurarFormatoPantalla() {
+        etPantalla.setTextColor(getColor(R.color.texto_principal))
+        etPantalla.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40f)
+    }
+
+    /**
+     * Pinta de naranja oscuro el botón del operador activo y deja los demás en su color normal.
+     * Si operador es null, todos vuelven a su color normal.
+     */
+    private fun marcarOperadorActivo(operador: String?) {
+        val botones = mapOf(
+            "+" to R.id.btnSumar,
+            "-" to R.id.btnRestar,
+            "*" to R.id.btnMultiplicar,
+            "/" to R.id.btnDividir
+        )
+        for ((simboloOperador, id) in botones) {
+            val boton = findViewById<Button>(id)
+            if (simboloOperador == operador) {
+                boton.setBackgroundResource(R.drawable.bg_boton_operador_activo)
+            } else {
+                boton.setBackgroundResource(R.drawable.bg_boton_operador)
+            }
+        }
     }
 
     // =====================================================================
