@@ -83,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnSigno).setOnClickListener { cambiarSigno() }
         findViewById<Button>(R.id.btnSumar).setOnClickListener { presionarOperador("+") }
         findViewById<Button>(R.id.btnRestar).setOnClickListener { presionarOperador("-") }
+        findViewById<Button>(R.id.btnMultiplicar).setOnClickListener { presionarOperador("*") }
         findViewById<Button>(R.id.btnIgual).setOnClickListener { presionarIgual() }
     }
 
@@ -220,6 +221,7 @@ class MainActivity : AppCompatActivity() {
         return when (operadorActual) {
             "+" -> sumar(a, b)
             "-" -> restar(a, b)
+            "*" -> multiplicar(a, b)
             else -> null
         }
     }
@@ -246,6 +248,11 @@ class MainActivity : AppCompatActivity() {
     /** Resta: devuelve a - b. */
     private fun restar(a: Double, b: Double): Double {
         return a - b
+    }
+
+    /** Multiplicación: devuelve a × b. */
+    private fun multiplicar(a: Double, b: Double): Double {
+        return a * b
     }
 
     // =====================================================================
