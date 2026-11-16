@@ -14,7 +14,7 @@
 - Encadenar: `12 + 5 + 3 =` → `20`.
 - Mostrar `C`, `⌫`, `±` y la tecla Enter.
 - Mostrar el historial y cómo se desplaza.
-- Señalar el cambio de color del operador activo y el resultado en verde.
+- Señalar el cambio de color del operador activo y el resultado en azul.
 
 ## 3. Recorrido por `activity_main.xml` (≈ 1 min 30 s)
 - `LinearLayout` vertical como contenedor principal.

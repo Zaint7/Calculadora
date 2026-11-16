@@ -7,69 +7,77 @@
     android:layout_height="match_parent"
     android:background="@color/fondo"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="20dp"
     tools:context=".MainActivity">
 
-    <!-- Etiqueta de título -->
+    <!-- Etiqueta de título, pequeña y discreta -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:text="@string/titulo"
-        android:textColor="@color/texto_principal"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <!-- ScrollView: permite desplazar el historial cuando crece -->
-    <ScrollView
-        android:id="@+id/scrollHistorial"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:id="@+id/tvHistorial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textColor="@color/texto_secundario"
-            android:textSize="16sp" />
-    </ScrollView>
-
-    <!-- Expresión en curso, por ejemplo "12 +" -->
-    <TextView
-        android:id="@+id/tvExpresion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:minHeight="28dp"
         android:textColor="@color/texto_secundario"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
-    <!-- Pantalla: EditText sin teclado del sistema, pero con foco para capturar Enter -->
-    <EditText
-        android:id="@+id/etPantalla"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/desc_pantalla"
-        android:cursorVisible="false"
-        android:focusable="true"
-        android:gravity="end"
-        android:importantForAutofill="no"
-        android:inputType="none"
-        android:maxLines="1"
-        android:text="@string/cero"
-        android:textColor="@color/texto_principal"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-
-    <!-- Teclado: TableLayout con 5 filas; cada fila reparte la altura con weight -->
-    <TableLayout
+    <!-- Zona de la pantalla: ocupa el espacio sobrante y pega su contenido abajo,
+         justo encima del teclado (layout_weight=1 + gravity=bottom) -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <!-- ScrollView: permite desplazar el historial cuando crece -->
+        <ScrollView
+            android:id="@+id/scrollHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <TextView
+                android:id="@+id/tvHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/texto_secundario"
+                android:textSize="14sp" />
+        </ScrollView>
+
+        <!-- Expresión en curso, por ejemplo "12 +" -->
+        <TextView
+            android:id="@+id/tvExpresion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:minHeight="28dp"
+            android:textColor="@color/texto_secundario"
+            android:textSize="18sp" />
+
+        <!-- Pantalla: EditText sin teclado del sistema, pero con foco para capturar Enter -->
+        <EditText
+            android:id="@+id/etPantalla"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/desc_pantalla"
+            android:cursorVisible="false"
+            android:focusable="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="end"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:maxLines="1"
+            android:padding="0dp"
+            android:text="@string/cero"
+            android:textColor="@color/texto_principal"
+            android:textSize="48sp" />
+    </LinearLayout>
+
+    <!-- Teclado: TableLayout de altura fija; cada fila reparte esa altura con weight -->
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_marginTop="12dp"
         android:stretchColumns="*">
 
         <TableRow
@@ -80,23 +88,26 @@
             <Button
                 android:id="@+id/btnLimpiar"
                 style="@style/Boton.Accion"
-                android:text="@string/limpiar"
-                android:contentDescription="@string/desc_limpiar" />
+                android:contentDescription="@string/desc_limpiar"
+                android:text="@string/limpiar" />
+
             <Button
                 android:id="@+id/btnBorrar"
                 style="@style/Boton.Accion"
-                android:text="@string/borrar"
-                android:contentDescription="@string/desc_borrar" />
+                android:contentDescription="@string/desc_borrar"
+                android:text="@string/borrar" />
+
             <Button
                 android:id="@+id/btnSigno"
                 style="@style/Boton.Accion"
-                android:text="@string/signo"
-                android:contentDescription="@string/desc_signo" />
+                android:contentDescription="@string/desc_signo"
+                android:text="@string/signo" />
+
             <Button
                 android:id="@+id/btnDividir"
                 style="@style/Boton.Operador"
-                android:text="@string/dividir"
-                android:contentDescription="@string/desc_dividir" />
+                android:contentDescription="@string/desc_dividir"
+                android:text="@string/dividir" />
         </TableRow>
 
         <TableRow
@@ -108,19 +119,22 @@
                 android:id="@+id/btn7"
                 style="@style/Boton.Numero"
                 android:text="@string/n7" />
+
             <Button
                 android:id="@+id/btn8"
                 style="@style/Boton.Numero"
                 android:text="@string/n8" />
+
             <Button
                 android:id="@+id/btn9"
                 style="@style/Boton.Numero"
                 android:text="@string/n9" />
+
             <Button
                 android:id="@+id/btnMultiplicar"
                 style="@style/Boton.Operador"
-                android:text="@string/multiplicar"
-                android:contentDescription="@string/desc_multiplicar" />
+                android:contentDescription="@string/desc_multiplicar"
+                android:text="@string/multiplicar" />
         </TableRow>
 
         <TableRow
@@ -132,19 +146,22 @@
                 android:id="@+id/btn4"
                 style="@style/Boton.Numero"
                 android:text="@string/n4" />
+
             <Button
                 android:id="@+id/btn5"
                 style="@style/Boton.Numero"
                 android:text="@string/n5" />
+
             <Button
                 android:id="@+id/btn6"
                 style="@style/Boton.Numero"
                 android:text="@string/n6" />
+
             <Button
                 android:id="@+id/btnRestar"
                 style="@style/Boton.Operador"
-                android:text="@string/restar"
-                android:contentDescription="@string/desc_restar" />
+                android:contentDescription="@string/desc_restar"
+                android:text="@string/restar" />
         </TableRow>
 
         <TableRow
@@ -156,21 +173,25 @@
                 android:id="@+id/btn1"
                 style="@style/Boton.Numero"
                 android:text="@string/n1" />
+
             <Button
                 android:id="@+id/btn2"
                 style="@style/Boton.Numero"
                 android:text="@string/n2" />
+
             <Button
                 android:id="@+id/btn3"
                 style="@style/Boton.Numero"
                 android:text="@string/n3" />
+
             <Button
                 android:id="@+id/btnSumar"
                 style="@style/Boton.Operador"
-                android:text="@string/sumar"
-                android:contentDescription="@string/desc_sumar" />
+                android:contentDescription="@string/desc_sumar"
+                android:text="@string/sumar" />
         </TableRow>
 
+        <!-- Última fila: el 0 ocupa 2 columnas (layout_span), luego "." y "=" -->
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -179,17 +200,20 @@
             <Button
                 android:id="@+id/btn0"
                 style="@style/Boton.Numero"
-                android:text="@string/n0"
-                android:layout_span="2" />
+                android:layout_span="2"
+                android:layout_weight="2"
+                android:text="@string/n0" />
+
             <Button
                 android:id="@+id/btnPunto"
                 style="@style/Boton.Numero"
                 android:text="@string/punto" />
+
             <Button
                 android:id="@+id/btnIgual"
                 style="@style/Boton.Igual"
-                android:text="@string/igual"
-                android:contentDescription="@string/desc_igual" />
+                android:contentDescription="@string/desc_igual"
+                android:text="@string/igual" />
         </TableRow>
 
     </TableLayout>

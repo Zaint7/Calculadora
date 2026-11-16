@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Respeta las barras del sistema y conserva el margen de 16dp del diseño
-        val margen = (16 * resources.displayMetrics.density).toInt()
+        // Respeta las barras del sistema y conserva el margen de 20dp del diseño
+        val margen = (20 * resources.displayMetrics.density).toInt()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(
@@ -313,10 +313,10 @@ class MainActivity : AppCompatActivity() {
     // =====================================================================
 
     /**
-     * Resalta el resultado: texto verde y un poco más grande (setTextColor y setTextSize).
+     * Resalta el resultado: texto azul (color de acento) y un poco más grande (setTextColor y setTextSize).
      */
     private fun mostrarResultadoDestacado() {
-        etPantalla.setTextColor(getColor(R.color.resultado))
+        etPantalla.setTextColor(getColor(R.color.acento))
         etPantalla.setTextSize(TypedValue.COMPLEX_UNIT_SP, 44f)
     }
 
@@ -330,7 +330,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Pinta de naranja oscuro el botón del operador activo y deja los demás en su color normal.
+     * Resalta el botón del operador activo (fondo blanco con borde negro) y deja los demás en su color normal.
      * Si operador es null, todos vuelven a su color normal.
      */
     private fun marcarOperadorActivo(operador: String?) {
@@ -344,8 +344,10 @@ class MainActivity : AppCompatActivity() {
             val boton = findViewById<Button>(id)
             if (simboloOperador == operador) {
                 boton.setBackgroundResource(R.drawable.bg_boton_operador_activo)
+                boton.setTextColor(getColor(R.color.texto_principal))
             } else {
                 boton.setBackgroundResource(R.drawable.bg_boton_operador)
+                boton.setTextColor(getColor(R.color.white))
             }
         }
     }

@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Estilo base de todos los botones del teclado.
-         backgroundTint=@null permite que se vea nuestro drawable redondeado. -->
+         backgroundTint=@null permite ver nuestro drawable; sin sombra ni elevación. -->
     <style name="Boton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:elevation">0dp</item>
         <item name="backgroundTint">@null</item>
     </style>
 
     <style name="Boton.Numero">
         <item name="android:background">@drawable/bg_boton_numero</item>
-        <item name="android:textColor">@color/numero_texto</item>
+        <item name="android:textColor">@color/texto_principal</item>
     </style>
 
     <style name="Boton.Operador">
@@ -29,6 +37,6 @@
 
     <style name="Boton.Accion">
         <item name="android:background">@drawable/bg_boton_accion</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/texto_principal</item>
     </style>
 </resources>
